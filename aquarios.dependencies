@@ -1,14 +1,17 @@
 [
   {
     "repository": "device_lge_common",
-    "target_path": "device/lge/common"
+    "target_path": "device/lge/common",
+    "revision": "a8.1.0-caf"
   },
   {
     "repository": "kernel_lge_msm8996",
-    "target_path": "kernel/lge/msm8996"
+    "target_path": "kernel/lge/msm8996",
+    "revision": "a8.1.0-caf"
   },
   {
     "repository": "proprietary_vendor_lge",
-    "target_path": "vendor/lge"
+    "target_path": "vendor/lge",
+    "revision": "a8.1.0-caf"
   }
 ]
