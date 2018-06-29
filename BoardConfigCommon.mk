@@ -128,12 +128,6 @@ BOARD_HARDWARE_CLASS += $(COMMON_PATH)/lineagehw
 # CNE and DPM
 BOARD_USES_QCNE := true
 
-# CPU
-ENABLE_CPUSETS := true
-# Disable EAS until fully brought up on new kernel
-#ENABLE_SCHEDBOOST := true
-#TARGET_USES_INTERACTION_BOOST := true
-
 # Display
 BOARD_USES_ADRENO := true
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
@@ -198,6 +192,9 @@ TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.full
 # SELinux policies
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy
+
+# Thermal
+USE_DEVICE_SPECIFIC_THERMAL := true
 
 # Use Snapdragon LLVM, if available
 TARGET_USE_SDCLANG := true
