@@ -170,10 +170,6 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libqdMetaData.system
 
-# Doze mode
-PRODUCT_PACKAGES += \
-    LGDoze
-
 # Pocket Mode
 PRODUCT_PACKAGES += \
     XiaomiPocketMode
