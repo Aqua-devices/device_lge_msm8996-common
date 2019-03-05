@@ -125,16 +125,40 @@ on post-fs-data
     chown root system /dev/sensors
     chmod 0660 /dev/sensors
 
+    # Create PERFD deamon related dirs
+    setprop ro.min_freq_0 384000
+    mkdir /data/misc/perfd 0755 root system
+    chmod 2755 /data/misc/perfd
+    mkdir /data/system/perfd 0770 root system
+    rm /data/system/perfd/default_values
+    chmod 2770 /data/system/perfd
+
+    chown system system /dev/stune/top-app/schedtune.boost
+    chown system system /dev/cpu_dma_latency
+    chown system system /sys/devices/soc/soc:qcom,cpubw/devfreq/soc:qcom,cpubw/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
+    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/max_freq
+    chown system system /sys/class/devfreq/soc:qcom,gpubw/min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
 on early-boot
     chown system system /mnt/vendor/persist/sensors/gyro_sensitity_cal
 
 on boot
+    # Bring up CPUs
+    start power-sh
+
     # Update foreground and background cpusets
     write /dev/cpuset/foreground/cpus 0-3
     write /dev/cpuset/background/cpus 0-3
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/top-app/cpus 0-3
     write /dev/cpuset/restricted/cpus 0-3
+
+    # set default schedTune value for foreground/top-app (only affects EAS)
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
 
     # Don't reset entire SoC on individual subsystem crash
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
@@ -323,6 +347,10 @@ on property:sys.boot_completed=1
     write /dev/cpuset/foreground/cpus 0-2
     write /dev/cpuset/background/cpus 0
     write /dev/cpuset/system-background/cpus 0-2
+    write /dev/cpuset/restricted/cpus 0-1
+
+    # Additional EAS Settings
+    trigger enable-eas-settings
 
 on property:vendor.post_boot.parsed=*
     setprop sys.post_boot.parsed ${vendor.post_boot.parsed}
@@ -330,8 +358,48 @@ on property:vendor.post_boot.parsed=*
 on property:persist.sys.usb.diag_enable=*
     write /sys/devices/platform/lg_diag_cmd/diag_enable ${persist.sys.usb.diag_enable}
 
+on enable-eas-settings
+	# set dynamic schedtune boost
+	write /sys/module/cpu_boost/parameters/dynamic_stune_boost 5
+	write /sys/module/cpu_boost/parameters/input_boost_ms 1000
+	
+	# Will only work if using EAS
+	write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
+	write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "schedutil"
+
+	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
+	write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 20000
+	#write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/iowait_boost_enable 0
+	write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us 500
+	write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us 20000
+	#write /sys/devices/system/cpu/cpu4/cpufreq/schedutil/iowait_boost_enable 0
+	
+	# set default schedTune value for foreground/top-app (only affects EAS)
+    chmod 0664 /dev/stune/schedtune.boost
+    write /dev/stune/schedtune.boost 0
+    write /dev/stune/schedtune.prefer_idle 1
+    write /dev/stune/background/schedtune.prefer_idle 1
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/foreground/schedtune.boost 0
+    write /dev/stune/top-app/schedtune.boost 1
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+    
+    # VM tuning
+	write /proc/sys/vm/dirty_background_ratio 20
+	write /proc/sys/vm/dirty_expire_centisecs 200
+	write /proc/sys/vm/dirty_ratio 40
+	write /proc/sys/vm/swappiness 0
+	write /proc/sys/vm/vfs_cache_pressure 100
+
 service vendor.radio-sh /vendor/bin/init.radio.sh
     class late_start
     user root
     group root radio
+    oneshot
+
+service power-sh /vendor/bin/init.power.sh
+    class main
+    user root
+    group root system
+    disabled
     oneshot

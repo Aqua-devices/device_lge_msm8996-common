@@ -46,7 +46,7 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff loop.max_part=7
-BOARD_KERNEL_CMDLINE += sched_enable_hmp=1 sched_enable_power_aware=1 androidboot.configfs=true
+BOARD_KERNEL_CMDLINE += androidboot.configfs=true
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=US
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
@@ -86,7 +86,7 @@ AUDIO_FEATURE_ENABLED_HW_ACCELERATED_EFFECTS := false
 AUDIO_FEATURE_ENABLED_AUDIOSPHERE := true
 endif
 USE_XML_AUDIO_POLICY_CONF := 1
-BOARD_SUPPORTS_SOUND_TRIGGER := true
+BOARD_SUPPORTS_SOUND_TRIGGER := false
 AUDIO_FEATURE_ENABLED_PLAYBACK_ULL := true
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 AUDIO_FEATURE_ENABLED_VBAT_MONITOR := true
@@ -114,8 +114,6 @@ AUDIO_FEATURE_ENABLED_SND_MONITOR := true
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-	/system/vendor/lib/libmmcamera_ppeiscore.so|/system/vendor/lib/libshim_camera.so \
-	/system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so \
 	/system/lib64/lib-imsvt.so|/system/vendor/lib64/libshim_ims.so
 
 # Bluetooth
@@ -139,6 +137,7 @@ TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /system/bin/mediaserver=23 \
     /system/vendor/bin/mm-qcamera-daemon=23 \
     /system/vendor/bin/hw/android.hardware.camera.provider@2.4-service=24 \
+    /system/vendor/bin/hw/android.hardware.audio@2.0-service=23 \
     /system/vendor/bin/hw/android.hardware.sensors@1.0-service=22
 
 # CMHW
@@ -209,9 +208,7 @@ TARGET_USES_MKE2FS := true
 TARGET_NEEDS_PDFIUM_BIGINT := true
 
 # Power
-TARGET_HAS_NO_WLAN_STATS := true
-TARGET_TAP_TO_WAKE_NODE := "/sys/devices/virtual/input/lge_touch/tap2wake"
-TARGET_USES_INTERACTION_BOOST := true
+TARGET_HAS_NO_WIFI_STATS := true
 
 # RIL
 TARGET_RIL_VARIANT := caf

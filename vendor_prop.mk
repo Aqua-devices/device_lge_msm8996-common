@@ -16,21 +16,25 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
     audio.deep_buffer.media=true \
-    audio.offload.min.duration.secs=15 \
+    audio.heap.size.multiplier=7 \
+    audio.offload.min.duration.secs=30 \
     audio.offload.video=true \
-    persist.vendor.audio.speaker.prot.enable=true \
     persist.audio.dual_audio=ON \
     persist.audio.handset_rx_type=DEFAULT \
     persist.audio.twin_headset=DISABLE \
     persist.audio.twin_headset_on=0 \
     persist.audio.nsenabled=ON \
     persist.audio.voice.clarity=off \
-    persist.vendor.audio.fluence.speaker=false \
-    persist.vendor.audio.fluence.voicecall=false \
+    persist.audio.ssr.3mic=false \
+    persist.vendor.audio.fluence.audiorec=false \
+    persist.vendor.audio.fluence.speaker=true \
+    persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicerec=false \
+    persist.vendor.audio.speaker.prot.enable=true \
     persist.vendor.bt.enable.splita2dp=false \
-    ro.config.vc_call_vol_steps=7 \
     ro.af.client_heap_size_kbyte=7168 \
+    ro.config.media_vol_steps=25 \
+    ro.config.vc_call_vol_steps=7 \
     ro.vendor.audio.sdk.fluencetype=fluence \
     ro.vendor.audio.sdk.ssr=false \
     vendor.audio.dolby.ds2.enabled=false \
@@ -38,7 +42,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.flac.sw.decoder.24bit=true \
     vendor.audio_hal.period_size=192 \
     vendor.audio.hw.aac.encoder=true \
-    vendor.audio.noisy.broadcast.delay=600 \
     vendor.audio.offload.buffer.size.kb=64 \
     vendor.audio.offload.gapless.enabled=true \
     vendor.audio.offload.multiaac.enable=true \
@@ -51,23 +54,28 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.tunnel.encode=false \
     vendor.audio.use.sw.alac.decoder=true \
     vendor.audio.use.sw.ape.decoder=true \
-    vendor.voice.path.for.pcm.voip=false
+    vendor.voice.path.for.pcm.voip=true
 
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bt.bdaddr_path=/data/misc/bluetooth/bdaddr \
     qcom.bluetooth.soc=rome \
+    bt.max.hfpclient.connections=1 \
     bluetooth.chip.vendor=brcm
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
+    Camera.no_navigation_bar=true \
     persist.camera.expose.aux=1 \
     ro.camera.notify_nfc=1 \
     vidc.enc.dcvs.extra-buff-count=2 \
     persist.audio.camcorder.stereo=true \
     persist.camera.preview.ubwc=0 \
     persist.camera.video.ubwc=0 \
+    vendor.vidc.enc.disable.pq=true \
+    camera.disable_zsl_mode=1 \
+    persist.camera.zsl.mode=0 \
     media.settings.xml=/vendor/etc/media_profiles_V1_0.xml
 
 # CNE and DPM
@@ -95,7 +103,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.cabl=0 \
+    ro.qualcomm.cabl=2 \
     ro.sf.lcd_density=560
 
 # Factory Reset Protection (FRP)
@@ -110,93 +118,83 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
+    debug.egl.hw=1 \
     debug.gralloc.enable_fb_ubwc=1 \
     vendor.gralloc.enable_fb_ubwc=1 \
+    debug.sf.enable_hwc_vds=1 \
+    debug.sf.hw=1 \
     dev.pm.dyn_samplingrate=1 \
     persist.demo.hdmirotationlock=false \
-    persist.sys.wfd.virtual=0 \
-    sdm.perf_hint_window=50 \
     persist.hwc.enable_vds=1 \
+    persist.sys.wfd.virtual=0 \
+    ro.persist.qcapb=1 \
     sdm.debug.disable_rotator_split=1 \
-    debug.composition.type=gpu \
-    debug.egl.hw=1 \
+    sdm.debug.disable_skip_validate=1 \
+    sdm.perf_hint_window=50 \
     debug.egl.profiler=1 \
-    debug.performance.tuning=1 \
-    debug.sf.hw=1 \
-    debug.sf.latch_unsignaled=1 \
-    hw3d.force=1 \
-    hwui.disable_vsync=false \
-    hwui.render_dirty_regions=false \
-    ro.config.disable.hw_accel=false \
-    ro.fb.mode=1 \
-    ro.product.gpu.driver=1 \
-    com.qc.hardware=true \
     debug.composition.type=gpu \
-    debug.egl.hw=1 \
-    debug.egl.profiler=1 \
     debug.enabletr=true \
     debug.overlayui.enable=1 \
-    debug.qc.hardware=true \
-    debug.qctwa.preservebuf=1 \
-    debug.qctwa.statusbar=1 \
+    debug.performance.tuning=1 \
+    hw3d.force=1 \
+    hwui.render_dirty_regions=false \
     ro.config.enable.hw_accel=true \
-    ro.sf.compbypass.enable=0 \
-    debug.hwui.renderer=skiagl
-
-# HWUI
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=96 \
-    ro.hwui.layer_cache_size=64 \
-    ro.hwui.r_buffer_cache_size=12 \
-    ro.hwui.path_cache_size=39 \
-    ro.hwui.gradient_cache_size=1 \
-    ro.hwui.drop_shadow_cache_size=7 \
-    ro.hwui.texture_cache_flushrate=0.4 \
-    ro.hwui.text_small_cache_width=2048 \
-    ro.hwui.text_small_cache_height=2048 \
-    ro.hwui.text_large_cache_width=3072 \
-    ro.hwui.text_large_cache_height=2048
+    ro.fb.mode=1 \
+    debug.compbypass.enable=0
 
 # OpenGLES
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
 
-# Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.am.reschedule_service=true \
-    ro.min_freq_0=307200 \
-    ro.min_freq_4=307200 \
-    ro.sys.fw.bg_apps_limit=60 \
-    ro.vendor.extension_library=libqti-perfd-client.so
-
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
-    vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
-    ril.subscription.types=NV,RUIM \
-    DEVICE_PROVISIONED=1 \
-    persist.data.qmi.adb_logmask=0 \
-    persist.net.doxlat=true \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.custom_ecc=1 \
-    persist.radio.force_on_dc=true \
-    persist.radio.rat_on=combine \
-    persist.radio.redir_party_num=1 \
-    persist.radio.sib16_support=1 \
-    ro.telephony.call_ring.multiple=false
-
-# Radio - IMS
+# IMS / VoLTE
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
     persist.dbg.vt_avail_ovr=1 \
-    persist.radio.NO_STAPA=1 \
+    persist.dbg.wfc_avail_ovr=1 \
+    persist.radio.VT_CAM_INTERFACE=2 \
+    persist.radio.VT_ENABLE=1 \
     persist.radio.VT_HYBRID_ENABLE=1
+
+# Perf
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=libqti-perfd-client.so \
+    ro.vendor.qti.sys.fw.bg_apps_limit=60 \
+    ro.am.reschedule_service=true \
+    ro.min_freq_0=307200 \
+    ro.min_freq_4=307200 \
+    ro.sys.fw.bg_apps_limit=60
+
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    DEVICE_PROVISIONED=1 \
+    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
+    vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
+    ril.subscription.types=NV,RUIM \
+    ro.telephony.call_ring.multiple=false \
+    persist.data.qmi.adb_logmask=0 \
+    persist.net.doxlat=true \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.csvt.enabled=false \
+    persist.radio.REVERSE_QMI=0 \
+    persist.radio.ROTATION_ENABLE=1 \
+    persist.rcs.supported=1 \
+    persist.vendor.radio.cs_srv_type=1 \
+    persist.vendor.radio.custom_ecc=1 \
+    persist.vendor.radio.data_ltd_sys_ind=1 \
+    persist.vendor.radio.facnotsup_as_nonw=1 \
+    persist.vendor.radio.force_on_dc=true \
+    persist.vendor.radio.ignore_dom_time=5 \
+    persist.vendor.radio.rat_on=combine \
+    persist.vendor.radio.redir_party_num=1 \
+    persist.vendor.radio.mt_sms_ack=20 \
+    persist.vendor.radio.sib16_support=1
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.sensors.hal=e \
-    debug.qualcomm.sns.daemon=i \
-    debug.qualcomm.sns.libsensor1=i \
+    ro.qti.sensors.dev_ori=false \
+    ro.qti.sensors.pmd=false \
+    ro.qti.sensors.sta_detect=false \
+    ro.qti.sensors.mot_detect=false \
     persist.sensors.lgpickup_en=true \
     persist.sensors.mag_filter_size=8 \
     persist.sensors.knock_delay=700 \

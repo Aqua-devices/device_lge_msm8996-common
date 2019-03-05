@@ -17,6 +17,8 @@
 # Fingerprint
 /sys/devices/soc/75b7000\.spi/spi_master/spi8/spi8\.1(/.*)?         u:object_r:sysfs_devices_fingerprint:s0
 /sys/devices/soc/75ba000\.spi/spi_master/spi12/spi12\.[0-1](/.*)?   u:object_r:sysfs_devices_fingerprint:s0
+/sys/devices/virtual/input/lge_fingerprint/device_prepare           u:object_r:sysfs_lge_fingerprint_prepare:s0
+
 
 # FRP partition
 /dev/block/platform/soc/624000\.ufshc/by-name/persistent            u:object_r:frp_block_device:s0
@@ -28,9 +30,7 @@
 /sys/devices/virtual/graphics/fb[0-2](/.*)?                         u:object_r:sysfs_graphics:s0
 
 # Init
-/(vendor|system/vendor)/bin/init\.power\.sh                         u:object_r:init_power_exec:s0
-/(vendor|system/vendor)/bin/init\.qcom\.graphics\.sh                u:object_r:init_graphics_exec:s0
-/(vendor|system/vendor)/bin/init\.radio\.sh                         u:object_r:init_radio_exec:s0
+/(vendor|system/vendor)/bin/init\.lucye\.hdmi\.sh                   u:object_r:init_graphics_exec:s0
 
 # IR
 /dev/ttyHSL1                                                        u:object_r:cir_device:s0
