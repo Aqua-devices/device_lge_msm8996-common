@@ -7,36 +7,6 @@ vendor/lib64/libadsp_default_listener.so
 vendor/lib64/libadsprpc.so
 vendor/lib64/libfastcvopt.so
 
-# Audio
-vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so
-vendor/lib/libacdbmapper.so
-vendor/lib/libacdbrtac.so
-vendor/lib/libadiertac.so
-vendor/lib/libadm.so
-vendor/lib/libaudcal.so
--vendor/lib/libaudio_log_utils.so
-vendor/lib/libaudioalsa.so
-vendor/lib/libmdsprpc.so
--vendor/lib/libqct_resampler.so
-vendor/lib/libqtigef.so
-vendor/lib/soundfx/libqcbassboost.so
-vendor/lib/soundfx/libqcreverb.so
-vendor/lib/soundfx/libqcvirt.so
-vendor/lib64/libacdb-fts.so
-vendor/lib64/libacdbloader.so
-vendor/lib64/libacdbmapper.so
-vendor/lib64/libacdbrtac.so
-vendor/lib64/libadiertac.so
-vendor/lib64/libaudcal.so
--vendor/lib64/libaudio_log_utils.so
-vendor/lib64/libaudioalsa.so
-vendor/lib64/libmdsprpc.so
-vendor/lib64/libqtigef.so
-vendor/lib64/soundfx/libqcbassboost.so
-vendor/lib64/soundfx/libqcreverb.so
-vendor/lib64/soundfx/libqcvirt.so
-
 # CNE
 etc/permissions/cneapiclient.xml
 etc/permissions/com.quicinc.cne.xml
@@ -138,10 +108,10 @@ vendor/lib/libsymphony-1.1.1.so
 # GPS
 lib/vendor.qti.gnss@1.0.so
 lib64/vendor.qti.gnss@1.0.so
+lib64/android.hardware.gnss@8.0.so
 vendor/bin/hw/vendor.qti.gnss@1.0-service
 vendor/bin/loc_launcher
 vendor/bin/lowi-server
-vendor/bin/slim_daemon
 vendor/bin/xtra-daemon
 vendor/etc/init/vendor.qti.gnss@1.0-service.rc
 vendor/lib/hw/vendor.qti.gnss@1.0-impl.so
@@ -171,6 +141,8 @@ vendor/lib64/libulp2.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
 vendor/lib64/vendor.qti.gnss@1.0_vendor.so
+vendor/lib64/libhui.so
+vendor/lib64/libux.so
 
 # Graphics
 etc/permissions/com.qti.snapdragon.sdk.display.xml
@@ -265,14 +237,6 @@ vendor/lib64/libhdr_tm.so
 # Keystore
 -vendor/lib/hw/keystore.msm8996.so
 -vendor/lib64/hw/keystore.msm8996.so
-
-# Listen
-vendor/lib/hw/sound_trigger.primary.msm8996.so
-vendor/lib/libadpcmdec.so
-vendor/lib/libsmwrapper.so
-vendor/lib/vendor.qti.voiceprint@1.0.so
-vendor/lib64/hw/sound_trigger.primary.msm8996.so
-vendor/lib64/vendor.qti.voiceprint@1.0.so
 
 # Media
 -vendor/lib/libgpustats.so
@@ -383,6 +347,7 @@ etc/permissions/telephonyservice.xml
 -framework/qcrilhook.jar
 -framework/qti-telephony-common.jar
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+vendor/bin/ATFWD-daemon
 vendor/bin/netmgrd
 vendor/bin/qti
 vendor/bin/rmt_storage
@@ -423,7 +388,6 @@ vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0_vendor.so
 vendor/radio/qcril_database/qcril.db
 
 # Radio - IMS
--app/ims/ims.apk:vendor/app/ims/ims.apk
 etc/permissions/qti-vzw-ims-internal.xml
 lib/com.qualcomm.qti.imscmservice@1.0.so
 lib/lib-imscamera.so
@@ -470,24 +434,6 @@ vendor/lib64/lib-rtpsl.so
 vendor/lib64/lib-uceservice.so
 vendor/lib64/vendor.qti.imsrtpservice@1.0-service-Impl.so
 vendor/lib64/vendor.qti.imsrtpservice@1.0_vendor.so
-
-# Sensors
-vendor/bin/sensors.qcom
-vendor/lib/hw/activity_recognition.msm8996.so
-vendor/lib/libsensor1.so
-vendor/lib/libsensor_reg.so
-vendor/lib/libsensor_test.so
-vendor/lib/libsensor_thresh.so
-vendor/lib/libsensor_user_cal.so
-vendor/lib/sensors.ssc.so
-vendor/lib64/hw/activity_recognition.msm8996.so
-vendor/lib64/libsensor1.so
-vendor/lib64/libsensor_reg.so
-vendor/lib64/libsensor_test.so
-vendor/lib64/libsensor_thresh.so
-vendor/lib64/libsensor_user_cal.so
-vendor/lib64/sensors.ssc.so
-vendor/lib64/hw/sensors.vr.so
 
 # Thermal
 vendor/bin/thermal-engine
