@@ -172,10 +172,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     LGESettings
 
-# Doze mode
-PRODUCT_PACKAGES += \
-    LGDoze
-
 # Pocket Mode
 PRODUCT_PACKAGES += \
     XiaomiPocketMode
